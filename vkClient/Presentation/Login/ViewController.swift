@@ -40,22 +40,32 @@ class ViewController: UIViewController {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if identifier == "moveToMain" {
+            guard
+                let login = loginTextField.text,
+                let password = passwordTextField.text
+            else {
+                showErrorAlert(message: "Поля не заполнены")
+                return false
+            }
+            
+            // Проверяем, верны ли они
+            if login == "admin" && password == "12345" {
+                return true
+            } else if login == "" && password == "" {
+                showErrorAlert(message: "Поля не заполнены")
+                return false
+            } else {
+                showErrorAlert(message: "Не верный логин или пароль")
+                return false
+            }
+        }
+        showErrorAlert(message: "Не верный identifier у segue")
+        return false
+    }
+    
     @IBAction func loginButtonPressed(_ sender: UIButton) {
-        // Получаем текст логина и пароля
-        guard
-            let login = loginTextField.text,
-            let password = passwordTextField.text
-        else {
-            print("Login or password empty")
-            return
-        }
-        
-        // Проверяем, верны ли они
-        if login == "admin" && password == "12345" {
-            print("Успешная авторизация")
-        } else {
-            print("Не успешная авторизация")
-        }
     }
     
     // Когда клавиатура появляется
@@ -87,6 +97,18 @@ class ViewController: UIViewController {
 
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         scrollView.addGestureRecognizer(tapGesture)
+    }
+    
+    private func showErrorAlert(message: String) {
+        let alert = UIAlertController(title: "Ошибка",
+                                      message: message,
+                                      preferredStyle: .alert)
+        let action = UIAlertAction(title: "Ok", style: .default) { _ in
+            self.loginTextField.text = ""
+            self.passwordTextField.text = ""
+        }
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
     }
 }
 
