@@ -10,8 +10,8 @@ import UIKit
 final class PhotosCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "PhotosCollectionViewCell"
-    
     @IBOutlet var photoImageView: UIImageView!
+    
     
     func configure(photo: Photo) {
         photoImageView.image = UIImage(named: photo.image)
