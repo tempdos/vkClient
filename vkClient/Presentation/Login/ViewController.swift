@@ -51,7 +51,7 @@ class ViewController: UIViewController {
             }
             
             // Проверяем, верны ли они
-            if login == "admin" && password == "12345" {
+            if login == "" && password == "" {
                 return true
             } else if login == "" && password == "" {
                 showErrorAlert(message: "Поля не заполнены")
