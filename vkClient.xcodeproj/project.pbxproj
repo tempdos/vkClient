@@ -25,6 +25,7 @@
 		57472BD826B458B8000FB276 /* LikeControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57472BD726B458B8000FB276 /* LikeControl.swift */; };
 		57472BDB26B702AC000FB276 /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57472BDA26B702AC000FB276 /* AvatarView.swift */; };
 		5749E20226DD11A300A7E7E7 /* AnimateLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5749E20126DD11A300A7E7E7 /* AnimateLogin.swift */; };
+		576C02E426F7679B007157EB /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576C02E326F7679B007157EB /* AuthViewController.swift */; };
 		57BFF02B26B04B98005693C8 /* GroupStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BFF02A26B04B98005693C8 /* GroupStorage.swift */; };
 		57BFF02D26B04C12005693C8 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BFF02C26B04C12005693C8 /* Group.swift */; };
 		57BFF03126B04DF6005693C8 /* AllGroupsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BFF03026B04DF6005693C8 /* AllGroupsViewController.swift */; };
@@ -59,6 +60,7 @@
 		57472BD726B458B8000FB276 /* LikeControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeControl.swift; sourceTree = "<group>"; };
 		57472BDA26B702AC000FB276 /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
 		5749E20126DD11A300A7E7E7 /* AnimateLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimateLogin.swift; sourceTree = "<group>"; };
+		576C02E326F7679B007157EB /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		57BFF02A26B04B98005693C8 /* GroupStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupStorage.swift; sourceTree = "<group>"; };
 		57BFF02C26B04C12005693C8 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		57BFF03026B04DF6005693C8 /* AllGroupsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllGroupsViewController.swift; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 		573EEE29269760040068EE00 /* vkClient */ = {
 			isa = PBXGroup;
 			children = (
+				576C02DC26F7664F007157EB /* Services */,
 				57472BD526B4588D000FB276 /* CustomElements */,
 				57D2871C26A88C7A005373AF /* Repository */,
 				57D2871726A88AC4005373AF /* Models */,
@@ -194,6 +197,7 @@
 			children = (
 				573EEE2E269760040068EE00 /* ViewController.swift */,
 				5749E20126DD11A300A7E7E7 /* AnimateLogin.swift */,
+				576C02E326F7679B007157EB /* AuthViewController.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -222,6 +226,14 @@
 				57472BDA26B702AC000FB276 /* AvatarView.swift */,
 			);
 			path = Avatar;
+			sourceTree = "<group>";
+		};
+		576C02DC26F7664F007157EB /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				571D16AA26EA513300010A15 /* Session.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		57BFF03326B04E4A005693C8 /* AllGroups */ = {
@@ -267,7 +279,6 @@
 			children = (
 				57D2871D26A88CAA005373AF /* UserStorage.swift */,
 				57BFF02A26B04B98005693C8 /* GroupStorage.swift */,
-				571D16AA26EA513300010A15 /* Session.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -349,6 +360,7 @@
 				57D2871926A88AD8005373AF /* User.swift in Sources */,
 				57F6F0A126C35301006A6AED /* FriendsHeaderSection.swift in Sources */,
 				57C34787269B11E500D1FE3D /* FriendsViewController.swift in Sources */,
+				576C02E426F7679B007157EB /* AuthViewController.swift in Sources */,
 				573EEE2F269760040068EE00 /* ViewController.swift in Sources */,
 				5729929926AEC89B00E0E93F /* PhotosCollectionViewCell.swift in Sources */,
 				573EEE2B269760040068EE00 /* AppDelegate.swift in Sources */,

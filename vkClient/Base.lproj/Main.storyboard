@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ywP-ie-5Fz">
     <device id="retina6_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
@@ -123,6 +123,41 @@
             </objects>
             <point key="canvasLocation" x="-803" y="76"/>
         </scene>
+        <!--Auth View Controller-->
+        <scene sceneID="d0p-S2-qVI">
+            <objects>
+                <viewController id="ywP-ie-5Fz" customClass="AuthViewController" customModule="vkClient" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="77y-VF-nKz">
+                        <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gNk-7N-yAq">
+                                <rect key="frame" x="0.0" y="44" width="428" height="848"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="FcA-5j-nxA"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="FcA-5j-nxA" firstAttribute="bottom" secondItem="gNk-7N-yAq" secondAttribute="bottom" id="FtD-VO-4SN"/>
+                            <constraint firstItem="gNk-7N-yAq" firstAttribute="leading" secondItem="FcA-5j-nxA" secondAttribute="leading" id="MLD-w6-RRv"/>
+                            <constraint firstItem="gNk-7N-yAq" firstAttribute="top" secondItem="FcA-5j-nxA" secondAttribute="top" id="YfP-sD-ao9"/>
+                            <constraint firstItem="FcA-5j-nxA" firstAttribute="trailing" secondItem="gNk-7N-yAq" secondAttribute="trailing" id="wba-u1-1ek"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="webView" destination="gNk-7N-yAq" id="wLI-TE-Pcm"/>
+                        <segue destination="eIj-Co-PoN" kind="show" identifier="moveToMain" id="o3M-Xi-1q3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yez-0P-5VP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-4" y="760"/>
+        </scene>
         <!--Animate Login-->
         <scene sceneID="xEr-9q-KV1">
             <objects>
@@ -161,7 +196,7 @@
                     <navigationItem key="navigationItem" id="YTa-v1-3oC"/>
                     <connections>
                         <outlet property="animateStackView" destination="jQi-tJ-KaZ" id="Ca2-q2-IIg"/>
-                        <segue destination="eIj-Co-PoN" kind="show" identifier="moveToMain" id="d5q-rB-k4i"/>
+                        <segue destination="eIj-Co-PoN" kind="show" identifier="" id="d5q-rB-k4i"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YHm-Bx-oW7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -379,7 +414,6 @@
                                             <outlet property="avatarImage" destination="nuz-Yv-R0y" id="zBT-tw-yXD"/>
                                             <outlet property="avatarView" destination="g4H-fN-k7U" id="99X-A6-A0V"/>
                                             <outlet property="nameLabel" destination="diT-KP-EkE" id="2Fb-b9-4qR"/>
-                                            <segue destination="22g-yk-D9w" kind="show" identifier="moveToPhotos" id="dE5-Lt-B2l"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -412,6 +446,7 @@
                     <connections>
                         <outlet property="letterControl" destination="Yaz-ZC-wUg" id="G5u-Ki-zFk"/>
                         <outlet property="tableView" destination="T5m-ox-7Ma" id="qfO-iy-5YU"/>
+                        <segue destination="22g-yk-D9w" kind="show" identifier="moveToPhotos" id="bUM-Nq-L4r"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OwQ-7P-a4B" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -549,6 +584,9 @@
             <point key="canvasLocation" x="1629" y="424"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="o3M-Xi-1q3"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="person.2" catalog="system" width="128" height="81"/>
         <image name="person.2.fill" catalog="system" width="128" height="80"/>
