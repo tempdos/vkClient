@@ -20,6 +20,10 @@ final class FriendTableViewCell: UITableViewCell {
         avatarImage.layer.cornerRadius = avatarImage.frame.height/2
         avatarImage.clipsToBounds = true
         avatarView.addSubview(shadowView)
+        let tapGR = UITapGestureRecognizer(target: self, action: #selector(self.avatarAnimate))
+        avatarImage.addGestureRecognizer(tapGR)
+        avatarImage.isUserInteractionEnabled = true
+
     }
     
     var shadowView: UIView {
@@ -32,5 +36,22 @@ final class FriendTableViewCell: UITableViewCell {
 //        shadow.layer.shadowPath = UIBezierPath(roundedRect: avatarImage.bounds, cornerRadius: 1.0).cgPath
         shadow.addSubview(avatarImage)
         return shadow
+    }
+    
+    @objc func avatarAnimate(sender: UITapGestureRecognizer) {
+        if sender.state == .ended {
+            UIView.animate(withDuration: 0.1,
+                           delay: 0,
+                           usingSpringWithDamping: 0.7,
+                           initialSpringVelocity: 0,
+                           options: [],
+                           animations: {
+                            self.avatarImage.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+                           },
+                           completion: {_ in
+                            self.avatarImage.transform = CGAffineTransform(scaleX: 1, y: 1)
+                           }
+                           )
+        }
     }
 }

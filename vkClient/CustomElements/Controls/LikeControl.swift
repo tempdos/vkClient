@@ -69,6 +69,12 @@ final class LikeControl: UIControl {
         default:
             likeString = ""
         }
+        UIView.transition(with: likeCountLabel,
+                          duration: 0.5,
+                      options: .transitionFlipFromRight,
+                    animations: { [weak self] in
+                        self?.likeCountLabel.text = likeString
+                 }, completion: nil)
         likeCountLabel.text = likeString
         likeCountLabel.translatesAutoresizingMaskIntoConstraints = false
         likeCountLabel.trailingAnchor.constraint(equalTo: likeImage.leadingAnchor, constant: -8).isActive = true
@@ -84,4 +90,6 @@ final class LikeControl: UIControl {
         }
         isLikeColor()
     }
+    
+    
 }

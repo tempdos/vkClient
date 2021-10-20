@@ -16,6 +16,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var passwordLabel: UILabel!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet var animateDot: UIView!
     
     
     override func viewDidLoad() {
@@ -41,7 +42,7 @@ class ViewController: UIViewController {
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        if identifier == "moveToMain" {
+        if identifier == "moveToAnimate" {
             guard
                 let login = loginTextField.text,
                 let password = passwordTextField.text

@@ -7,9 +7,11 @@
 
 import UIKit
 
-final class PhotosViewController: UIViewController {
+class PhotosViewController: UIViewController, CaruselViewControllerDelegate  {
     
     @IBOutlet var collectionView: UICollectionView!
+    
+    weak var caruselDelegate: CaruselViewControllerDelegate?
     
     var photos: [Photo] = []
     
@@ -17,16 +19,24 @@ final class PhotosViewController: UIViewController {
         super.viewDidLoad()
         collectionView.delegate = self
         collectionView.dataSource = self
+        caruselDelegate = self
+    }
+    
+    func showPresenter(photos: [Photo], selectedPhoto: Int){
+        let presentVC = CaruselViewController()
+        presentVC.photos = photos
+        presentVC.selectedPhoto = selectedPhoto
+        navigationController?.pushViewController(presentVC, animated: true)
     }
 }
 
-extension PhotosViewController: UICollectionViewDelegate {
-    
-}
-
-extension PhotosViewController: UICollectionViewDataSource {
+extension PhotosViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         photos.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        caruselDelegate?.showPresenter(photos: photos, selectedPhoto: indexPath.item)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -37,4 +47,8 @@ extension PhotosViewController: UICollectionViewDataSource {
     }
     
     
+}
+
+protocol  CaruselViewControllerDelegate: AnyObject {
+    func showPresenter(photos: [Photo], selectedPhoto: Int )
 }
