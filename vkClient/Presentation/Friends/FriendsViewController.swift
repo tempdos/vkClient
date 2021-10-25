@@ -15,9 +15,14 @@ class FriendsViewController: UIViewController {
     var friendsSection = [[User]]()
     private var firstLetters: [String] = []
     
+    let friendsAPI = FriendsAPI()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        friendsAPI.getFriends { users in
+            print(users)
+        }
         let friends = UserStorage().users.sorted(by: { $0.name < $1.name })
         firstLetters = getFirstLetters(friends)
         letterControl.setLetters(firstLetters)

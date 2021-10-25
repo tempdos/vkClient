@@ -12,9 +12,14 @@ class GroupsViewController: UIViewController {
     @IBOutlet private var tableView: UITableView!
     
     var groups: [Group] = []
+    let groupsAPI = GroupsAPI()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        groupsAPI.getGroups { items in
+            print(items)
+        }
         
         let storage = GroupStorage()
         groups = storage.groups

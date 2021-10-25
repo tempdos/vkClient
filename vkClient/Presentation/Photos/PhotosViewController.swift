@@ -14,12 +14,16 @@ class PhotosViewController: UIViewController, CaruselViewControllerDelegate  {
     weak var caruselDelegate: CaruselViewControllerDelegate?
     
     var photos: [Photo] = []
+    let photosAPI = PhotosAPI()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.delegate = self
         collectionView.dataSource = self
         caruselDelegate = self
+        photosAPI.getPhotos { items in
+            print(items)
+        }
     }
     
     func showPresenter(photos: [Photo], selectedPhoto: Int){
