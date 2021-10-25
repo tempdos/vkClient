@@ -23,6 +23,7 @@ class FriendsViewController: UIViewController {
         
         friendsAPI.getFriends { user in
             self.friends = user
+            self.tableView.reloadData()
         }
         friends = friends.sorted(by: { $0.firstName < $1.firstName })
         firstLetters = getFirstLetters(friends)
@@ -32,7 +33,6 @@ class FriendsViewController: UIViewController {
         friendsSection = sortedForSection(friends, firstLetters: firstLetters)
         
         tableView.register(FriendsHeaderSection.self, forHeaderFooterViewReuseIdentifier: FriendsHeaderSection.reuseIdentifier)
-        self.tableView.reloadData()
     }
     
     @objc func scrollToLetter() {
