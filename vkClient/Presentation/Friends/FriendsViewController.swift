@@ -16,14 +16,15 @@ class FriendsViewController: UIViewController {
     private var firstLetters: [String] = []
     
     let friendsAPI = FriendsAPI()
+    var friends = [User]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        friendsAPI.getFriends { users in
-            print(users)
+        friendsAPI.getFriends { user in
+            self.friends = user
         }
-        let friends = UserStorage().users.sorted(by: { $0.name < $1.name })
+        friends = friends.sorted(by: { $0.firstName < $1.firstName })
         firstLetters = getFirstLetters(friends)
         letterControl.setLetters(firstLetters)
         letterControl.addTarget(self, action: #selector(scrollToLetter), for: .valueChanged)
@@ -31,12 +32,13 @@ class FriendsViewController: UIViewController {
         friendsSection = sortedForSection(friends, firstLetters: firstLetters)
         
         tableView.register(FriendsHeaderSection.self, forHeaderFooterViewReuseIdentifier: FriendsHeaderSection.reuseIdentifier)
+        self.tableView.reloadData()
     }
     
     @objc func scrollToLetter() {
         let letter = letterControl.selectLetter
         guard
-            let firstIndexForLetter = friendsSection.firstIndex(where: { String($0.first?.name.prefix(1) ?? "") == letter })
+            let firstIndexForLetter = friendsSection.firstIndex(where: { String($0.first?.firstName.prefix(1) ?? "") == letter })
         else {
             return
         }
@@ -49,7 +51,7 @@ class FriendsViewController: UIViewController {
 
     
     private func getFirstLetters(_ friends: [User]) -> [String] {
-        let friendsName = friends.map { $0.name }
+        let friendsName = friends.map { $0.firstName }
         let firstLetters = Array(Set(friendsName.map { String($0.prefix(1)) })).sorted()
         return firstLetters
     }
@@ -57,7 +59,7 @@ class FriendsViewController: UIViewController {
     private func sortedForSection(_ friends: [User], firstLetters: [String]) -> [[User]] {
         var friendsSorted: [[User]] = []
         firstLetters.forEach { letter in
-            let friendsForLetter = friends.filter { String($0.name.prefix(1)) == letter }
+            let friendsForLetter = friends.filter { String($0.firstName.prefix(1)) == letter }
             friendsSorted.append(friendsForLetter)
         }
         return friendsSorted
@@ -70,8 +72,7 @@ class FriendsViewController: UIViewController {
            let indexPath = sender as? IndexPath
         {
             let friend = friendsSection[indexPath.section][indexPath.row]
-            destinationController.photos = friend.photos
-            destinationController.title = friend.name
+            destinationController.title = "\(friend.firstName)+\(friend.lastName)"
         }
     }
 }

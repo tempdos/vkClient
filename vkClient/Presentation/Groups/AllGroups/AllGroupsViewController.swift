@@ -15,6 +15,8 @@ final class AllGroupsViewController: UIViewController, UISearchBarDelegate {
     var groups = GroupStorage().allGroups
     var filteredGroups: [Group]!
     
+    let searchGroups = GroupsAPI()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,6 +34,8 @@ final class AllGroupsViewController: UIViewController, UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
         filteredGroups = [Group]()
+        
+        
         
         if searchText == "" {
             filteredGroups = groups

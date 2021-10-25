@@ -1,5 +1,5 @@
 //
-//  GroupsAPI.swift
+//  SearchGroupsAPI.swift
 //  vkClient
 //
 //  Created by Василий Слепцов on 20.09.2021.
@@ -8,7 +8,7 @@
 import Foundation
 import Alamofire
 
-final class GroupsAPI {
+final class SearchGroupsAPI {
     
     let baseUrl = "https://api.vk.com/method"
     let token = Session.shared.token
@@ -17,7 +17,7 @@ final class GroupsAPI {
     
     func getGroups(completion: @escaping([Group]) -> ()) {
         
-        let method = "/groups.get"
+        let method = "/search.getHints"
         
         let parameters: Parameters = [
             "user_id": userId,

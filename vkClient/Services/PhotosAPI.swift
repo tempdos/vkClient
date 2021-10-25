@@ -23,7 +23,7 @@ final class PhotosAPI {
             "owner_id": userId,
             "album_id": "wall",
             "extended": 1,
-            "count": 1000,
+            "count": 5,
             "access_token": token,
             "v": version
         ]

@@ -1,19 +1,13 @@
 //
-//  FriendModel.swift
+//  Friend.swift
 //  vkClient
 //
-//  Created by Василий Слепцов on 22.07.2021.
+//  Created by Василий Слепцов on 24.10.2021.
 //
 
 import Foundation
 
-//struct User {
-//    var name: String
-//    var avatar: String
-//    var photos: [Photo]
-//}
-
-struct User: Codable {
+struct Friend: Codable {
     let id: Int
     let photo100: String
     let lastName: String
