@@ -68,7 +68,7 @@ extension AuthViewController: WKNavigationDelegate {
         Session.shared.token = token
         Session.shared.userId = userId
         
-        self.performSegue(withIdentifier: "moveToMain", sender: self)
+        self.performSegue(withIdentifier: "moveToAnimate", sender: self)
         
         decisionHandler(.cancel)
     }

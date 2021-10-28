@@ -71,8 +71,9 @@ class FriendsViewController: UIViewController {
            let destinationController = segue.destination as? PhotosViewController,
            let indexPath = sender as? IndexPath
         {
-            let friend = friendsSection[indexPath.section][indexPath.row]
-            destinationController.title = "\(friend.firstName)+\(friend.lastName)"
+            let friend = friends[indexPath.row]
+            destinationController.title = "\(friend.firstName) \(friend.lastName)"
+            destinationController.user_id = friend.id
         }
     }
 }
@@ -80,11 +81,11 @@ class FriendsViewController: UIViewController {
 extension FriendsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        friendsSection.count
+        1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        friendsSection[section].count
+        friends.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -93,7 +94,7 @@ extension FriendsViewController: UITableViewDelegate, UITableViewDataSource {
         else {
             return UITableViewCell()
         }
-        let friend = friendsSection[indexPath.section][indexPath.row]
+        let friend = friends[indexPath.row]
         cell.configure(user: friend)
         return cell
     }
@@ -101,14 +102,14 @@ extension FriendsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "moveToPhotos", sender: indexPath)
     }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard
-            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: FriendsHeaderSection.reuseIdentifier) as? FriendsHeaderSection
-        else {
-            return nil
-        }
-        header.configure(title: firstLetters[section])
-        return header
-    }
+//    
+//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        guard
+//            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: FriendsHeaderSection.reuseIdentifier) as? FriendsHeaderSection
+//        else {
+//            return nil
+//        }
+//        header.configure(title: firstLetters[section])
+//        return header
+//    }
 }

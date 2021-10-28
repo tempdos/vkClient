@@ -7,8 +7,17 @@
 
 import Foundation
 
-struct Photo {
-    let image: String
-    let date: String
-    let description: String
+struct Photo: Codable {
+    let id: Int
+    let sizes: [Size]
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case sizes
+    }
+}
+
+struct Size: Codable {
+    let url: String
+    let type: String
 }

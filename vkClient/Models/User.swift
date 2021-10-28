@@ -7,12 +7,6 @@
 
 import Foundation
 
-//struct User {
-//    var name: String
-//    var avatar: String
-//    var photos: [Photo]
-//}
-
 struct User: Codable {
     let id: Int
     let photo100: String

@@ -15,10 +15,15 @@ final class FriendTableViewCell: UITableViewCell {
     @IBOutlet var avatarImage: UIImageView!
     
     func configure(user: User) {
-        nameLabel.text = user.firstName
+        nameLabel.text = "\(user.firstName) \(user.lastName)"
+        let url = URL(string:user.photo100)
+        if let data = try? Data(contentsOf: url!)
+        {
+            avatarImage.image = UIImage(data: data)
+        }
 //        avatarImage.image = UIImage(named: user.avatar)
-//        avatarImage.layer.cornerRadius = avatarImage.frame.height/2
-//        avatarImage.clipsToBounds = true
+        avatarImage.layer.cornerRadius = avatarImage.frame.height/2
+        avatarImage.clipsToBounds = true
         avatarView.addSubview(shadowView)
         let tapGR = UITapGestureRecognizer(target: self, action: #selector(self.avatarAnimate))
         avatarImage.addGestureRecognizer(tapGR)

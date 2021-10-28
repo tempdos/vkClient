@@ -7,6 +7,7 @@
 
 import Foundation
 import Alamofire
+import SwiftyJSON
 
 final class PhotosAPI {
     
@@ -15,12 +16,12 @@ final class PhotosAPI {
     let userId = Session.shared.userId
     let version = "5.131"
     
-    func getPhotos(completion: @escaping([Photo]) -> ()) {
+    func getPhotos(id: Int, completion: @escaping([Photo]) -> ()) {
         
         let method = "/photos.get"
         
         let parameters: Parameters = [
-            "owner_id": userId,
+            "owner_id": id,
             "album_id": "wall",
             "extended": 1,
             "count": 5,
@@ -32,7 +33,17 @@ final class PhotosAPI {
         
         AF.request(url, method: .get, parameters: parameters).responseJSON { response in
             
-            print(response.result)
+            guard let data = response.data else { return }
+            
+            do {
+                
+                let photosJSON = try JSON(data: data)["response"]["items"].rawData()
+                let photos = try JSONDecoder().decode([Photo].self, from: photosJSON)
+                
+                completion(photos)
+            } catch {
+                print(error)
+            }
         }
     }
 }
