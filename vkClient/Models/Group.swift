@@ -6,11 +6,12 @@
 //
 
 import Foundation
+import RealmSwift
 
-struct Group: Codable {
-    let id: Int
-    let photo100: String
-    let name: String
+class Group: Object, Codable {
+    @objc dynamic let id: Int
+    @objc dynamic let photo100: String
+    @objc dynamic let name: String
 
     enum CodingKeys: String, CodingKey {
         case id
