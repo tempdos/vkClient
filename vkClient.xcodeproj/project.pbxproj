@@ -38,8 +38,8 @@
 		57D2871926A88AD8005373AF /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D2871826A88AD8005373AF /* User.swift */; };
 		57D2871B26A88B3A005373AF /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D2871A26A88B3A005373AF /* Photo.swift */; };
 		57EE8D8C26F8565E0064159A /* FriendsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57EE8D8B26F8565E0064159A /* FriendsAPI.swift */; };
-		57F6F09F26C2BB48006A6AED /* LettersControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F6F09E26C2BB48006A6AED /* LettersControl.swift */; };
 		57F6F0A126C35301006A6AED /* FriendsHeaderSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F6F0A026C35301006A6AED /* FriendsHeaderSection.swift */; };
+		57FD97D82737E6CA00E10B8C /* FriendsDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FD97D72737E6CA00E10B8C /* FriendsDB.swift */; };
 		A0AA26658630C13A3B11A230 /* Pods_vkClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA8E60036FD4E159FAC329C2 /* Pods_vkClient.framework */; };
 /* End PBXBuildFile section */
 
@@ -78,8 +78,8 @@
 		57D2871826A88AD8005373AF /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		57D2871A26A88B3A005373AF /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		57EE8D8B26F8565E0064159A /* FriendsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsAPI.swift; sourceTree = "<group>"; };
-		57F6F09E26C2BB48006A6AED /* LettersControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LettersControl.swift; sourceTree = "<group>"; };
 		57F6F0A026C35301006A6AED /* FriendsHeaderSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsHeaderSection.swift; sourceTree = "<group>"; };
+		57FD97D72737E6CA00E10B8C /* FriendsDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsDB.swift; sourceTree = "<group>"; };
 		AA8E60036FD4E159FAC329C2 /* Pods_vkClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_vkClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C747D5D615E75C6418241951 /* Pods-vkClient.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vkClient.debug.xcconfig"; path = "Target Support Files/Pods-vkClient/Pods-vkClient.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -238,7 +238,6 @@
 			isa = PBXGroup;
 			children = (
 				57472BD726B458B8000FB276 /* LikeControl.swift */,
-				57F6F09E26C2BB48006A6AED /* LettersControl.swift */,
 			);
 			path = Controls;
 			sourceTree = "<group>";
@@ -254,6 +253,7 @@
 		576C02DC26F7664F007157EB /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				57FD97D62737E6AE00E10B8C /* DB */,
 				571D16AA26EA513300010A15 /* Session.swift */,
 				57EE8D8B26F8565E0064159A /* FriendsAPI.swift */,
 				57A40EAD26F85FF50065844F /* GroupsAPI.swift */,
@@ -314,6 +314,14 @@
 			children = (
 			);
 			path = Repository;
+			sourceTree = "<group>";
+		};
+		57FD97D62737E6AE00E10B8C /* DB */ = {
+			isa = PBXGroup;
+			children = (
+				57FD97D72737E6CA00E10B8C /* FriendsDB.swift */,
+			);
+			path = DB;
 			sourceTree = "<group>";
 		};
 		AA6B7A65ADCD750DBB9947B9 /* Frameworks */ = {
@@ -458,7 +466,7 @@
 				57EE8D8C26F8565E0064159A /* FriendsAPI.swift in Sources */,
 				57BFF03526B05140005693C8 /* GroupsTableViewCell.swift in Sources */,
 				57A40EB026F861640065844F /* PhotosAPI.swift in Sources */,
-				57F6F09F26C2BB48006A6AED /* LettersControl.swift in Sources */,
+				57FD97D82737E6CA00E10B8C /* FriendsDB.swift in Sources */,
 				57AFB1E62725788C0097CC9A /* Data+PrettyJSON.swift in Sources */,
 				571CD77226E65887006BAEBA /* PushTransition.swift in Sources */,
 				573EAEAE26AD3316004D3105 /* FriendTableViewCell.swift in Sources */,

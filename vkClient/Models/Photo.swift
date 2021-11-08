@@ -9,6 +9,7 @@ import Foundation
 import RealmSwift
 
 class Photo: Object, Codable {
+    
     @objc dynamic let id: Int
     @objc dynamic let sizes: [Size]
 

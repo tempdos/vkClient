@@ -39,7 +39,6 @@ final class FriendsAPI {
                 
                 let friendsJSON = try JSON(data: data)["response"]["items"].rawData()
                 let friends = try JSONDecoder().decode([User].self, from: friendsJSON)
-                
                 completion(friends)
             } catch {
                 print(error)
