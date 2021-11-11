@@ -15,7 +15,11 @@ final class GroupsTableViewCell: UITableViewCell {
     @IBOutlet var avatarImageView: UIImageView!
     
     func configure(group: Group) {
-        avatarImageView.image = UIImage(named: group.avatar)
+        let url = URL(string: group.photo100)
+        if let data = try? Data(contentsOf: url!)
+        {
+            avatarImageView.image = UIImage(data: data)
+        }
         nameLabel.text = group.name
     }
 }

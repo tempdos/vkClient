@@ -7,6 +7,7 @@
 
 import Foundation
 import Alamofire
+import SwiftyJSON
 
 final class GroupsAPI {
     
@@ -22,7 +23,7 @@ final class GroupsAPI {
         let parameters: Parameters = [
             "user_id": userId,
             "extended": 1,
-            "count": 1000,
+            "count": 5,
             "fields": "members_count, status",
             "access_token": token,
             "v": version
@@ -32,7 +33,47 @@ final class GroupsAPI {
         
         AF.request(url, method: .get, parameters: parameters).responseJSON { response in
             
-            print(response.result)
+            guard let data = response.data else { return }
+
+            do {
+
+                let groupsJSON = try JSON(data: data)["response"]["items"].rawData()
+                let groups = try JSONDecoder().decode([Group].self, from: groupsJSON)
+
+                completion(groups)
+            } catch {
+                print(error)
+            }
+        }
+    }
+    
+    func searchGroups(query: String, completion: @escaping([Group]) -> ()) {
+        
+        let method = "/groups.search"
+        
+        let parameters: Parameters = [
+            "q": query,
+            "type": "group",
+            "count": 5,
+            "access_token": token,
+            "v": version
+        ]
+        
+        let url = baseUrl + method
+        
+        AF.request(url, method: .get, parameters: parameters).responseJSON { response in
+            
+            guard let data = response.data else { return }
+
+            do {
+
+                let groupsJSON = try JSON(data: data)["response"]["items"].rawData()
+                let groups = try JSONDecoder().decode([Group].self, from: groupsJSON)
+
+                completion(groups)
+            } catch {
+                print(error)
+            }
         }
     }
 }

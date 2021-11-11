@@ -18,7 +18,12 @@ class AuthViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if !Session.shared.token.isEmpty, !Session.shared.userId.isEmpty {
+            performSegue(withIdentifier: "moveToAnimate", sender: self)
+        }
         authorizeToVK()
+        
     }
     
 
@@ -63,13 +68,12 @@ extension AuthViewController: WKNavigationDelegate {
                 return dict
         }
         
-        guard let token = params["access_token"] else { return }
-        
-        print(token)
+        guard let token = params["access_token"], let userId = params["user_id"] else { return }
         
         Session.shared.token = token
+        Session.shared.userId = userId
         
-        self.performSegue(withIdentifier: "moveToMain", sender: self)
+        self.performSegue(withIdentifier: "moveToAnimate", sender: self)
         
         decisionHandler(.cancel)
     }

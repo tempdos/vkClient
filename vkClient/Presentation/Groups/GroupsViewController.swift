@@ -18,11 +18,9 @@ class GroupsViewController: UIViewController {
         super.viewDidLoad()
         
         groupsAPI.getGroups { items in
-            print(items)
+            self.groups = items
+            self.tableView.reloadData()
         }
-        
-        let storage = GroupStorage()
-        groups = storage.groups
     }
     
     @IBAction func addGroup(_ segue: UIStoryboardSegue) {

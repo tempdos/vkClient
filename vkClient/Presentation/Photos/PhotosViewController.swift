@@ -15,14 +15,16 @@ class PhotosViewController: UIViewController, CaruselViewControllerDelegate  {
     
     var photos: [Photo] = []
     let photosAPI = PhotosAPI()
+    var user_id: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.delegate = self
         collectionView.dataSource = self
         caruselDelegate = self
-        photosAPI.getPhotos { items in
-            print(items)
+        photosAPI.getPhotos(id: user_id) { items in
+            self.photos = items
+            self.collectionView.reloadData()
         }
     }
     

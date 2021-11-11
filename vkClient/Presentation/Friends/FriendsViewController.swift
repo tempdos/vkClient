@@ -16,14 +16,16 @@ class FriendsViewController: UIViewController {
     private var firstLetters: [String] = []
     
     let friendsAPI = FriendsAPI()
+    var friends = [User]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        friendsAPI.getFriends { users in
-            print(users)
+        friendsAPI.getFriends { user in
+            self.friends = user
+            self.tableView.reloadData()
         }
-        let friends = UserStorage().users.sorted(by: { $0.name < $1.name })
+        friends = friends.sorted(by: { $0.firstName < $1.firstName })
         firstLetters = getFirstLetters(friends)
         letterControl.setLetters(firstLetters)
         letterControl.addTarget(self, action: #selector(scrollToLetter), for: .valueChanged)
@@ -36,7 +38,7 @@ class FriendsViewController: UIViewController {
     @objc func scrollToLetter() {
         let letter = letterControl.selectLetter
         guard
-            let firstIndexForLetter = friendsSection.firstIndex(where: { String($0.first?.name.prefix(1) ?? "") == letter })
+            let firstIndexForLetter = friendsSection.firstIndex(where: { String($0.first?.firstName.prefix(1) ?? "") == letter })
         else {
             return
         }
@@ -49,7 +51,7 @@ class FriendsViewController: UIViewController {
 
     
     private func getFirstLetters(_ friends: [User]) -> [String] {
-        let friendsName = friends.map { $0.name }
+        let friendsName = friends.map { $0.firstName }
         let firstLetters = Array(Set(friendsName.map { String($0.prefix(1)) })).sorted()
         return firstLetters
     }
@@ -57,7 +59,7 @@ class FriendsViewController: UIViewController {
     private func sortedForSection(_ friends: [User], firstLetters: [String]) -> [[User]] {
         var friendsSorted: [[User]] = []
         firstLetters.forEach { letter in
-            let friendsForLetter = friends.filter { String($0.name.prefix(1)) == letter }
+            let friendsForLetter = friends.filter { String($0.firstName.prefix(1)) == letter }
             friendsSorted.append(friendsForLetter)
         }
         return friendsSorted
@@ -69,9 +71,9 @@ class FriendsViewController: UIViewController {
            let destinationController = segue.destination as? PhotosViewController,
            let indexPath = sender as? IndexPath
         {
-            let friend = friendsSection[indexPath.section][indexPath.row]
-            destinationController.photos = friend.photos
-            destinationController.title = friend.name
+            let friend = friends[indexPath.row]
+            destinationController.title = "\(friend.firstName) \(friend.lastName)"
+            destinationController.user_id = friend.id
         }
     }
 }
@@ -79,11 +81,11 @@ class FriendsViewController: UIViewController {
 extension FriendsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        friendsSection.count
+        1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        friendsSection[section].count
+        friends.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -92,7 +94,7 @@ extension FriendsViewController: UITableViewDelegate, UITableViewDataSource {
         else {
             return UITableViewCell()
         }
-        let friend = friendsSection[indexPath.section][indexPath.row]
+        let friend = friends[indexPath.row]
         cell.configure(user: friend)
         return cell
     }
@@ -100,14 +102,14 @@ extension FriendsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "moveToPhotos", sender: indexPath)
     }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard
-            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: FriendsHeaderSection.reuseIdentifier) as? FriendsHeaderSection
-        else {
-            return nil
-        }
-        header.configure(title: firstLetters[section])
-        return header
-    }
+//    
+//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        guard
+//            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: FriendsHeaderSection.reuseIdentifier) as? FriendsHeaderSection
+//        else {
+//            return nil
+//        }
+//        header.configure(title: firstLetters[section])
+//        return header
+//    }
 }

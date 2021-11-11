@@ -79,9 +79,9 @@ class CaruselViewController: UIViewController {
             rightImageView.widthAnchor.constraint(equalTo: middleImageView.widthAnchor),
         ])
         
-        leftImageView.image = UIImage(named: photos[indexPhotoLeft].image)
-        middleImageView.image = UIImage(named: photos[indexPhotoMid].image)
-        rightImageView.image = UIImage(named: photos[indexPhotoRight].image)
+        leftImageView.image = UIImage(named: photos[indexPhotoLeft].sizes[0].url)
+        middleImageView.image = UIImage(named: photos[indexPhotoMid].sizes[0].url)
+        rightImageView.image = UIImage(named: photos[indexPhotoRight].sizes[0].url)
         
         middleImageView.layer.cornerRadius = 8
         rightImageView.layer.cornerRadius = 8

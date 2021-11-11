@@ -7,6 +7,7 @@
 
 import Foundation
 import Alamofire
+import SwiftyJSON
 
 final class FriendsAPI {
     
@@ -22,8 +23,8 @@ final class FriendsAPI {
         let parameters: Parameters = [
             "user_id": userId,
             "order": "name",
-            "count": 1000,
-            "fields": "photo_100, photo_50",
+            "count": 5,
+            "fields": "photo_100",
             "access_token": token,
             "v": version
         ]
@@ -32,7 +33,17 @@ final class FriendsAPI {
         
         AF.request(url, method: .get, parameters: parameters).responseJSON { response in
             
-            print(response.result)
+            guard let data = response.data else { return }
+            
+            do {
+                
+                let friendsJSON = try JSON(data: data)["response"]["items"].rawData()
+                let friends = try JSONDecoder().decode([User].self, from: friendsJSON)
+                
+                completion(friends)
+            } catch {
+                print(error)
+            }
         }
     }
 }
