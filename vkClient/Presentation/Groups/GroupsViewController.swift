@@ -6,20 +6,37 @@
 //
 
 import UIKit
+import RealmSwift
 
 class GroupsViewController: UIViewController {
     
     @IBOutlet private var tableView: UITableView!
     
-    var groups: [Group] = []
-    let groupsAPI = GroupsAPI()
+    // Services
+    private let groupsAPI = GroupsAPI()
+    private let groupsDB = GroupsDB()
+    
+    // Data source
+    private var groups: Results<Group>?
+    private var token: NotificationToken?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        groupsAPI.getGroups { items in
-            self.groups = items
-            self.tableView.reloadData()
+        groupsAPI.getGroups { [weak self] groups in
+            guard let self = self else { return }
+            
+            groups.forEach { group in
+                let check = self.groupsDB.readOne(group.name)
+                if !check {
+                    self.groupsDB.create(group)
+                }
+            }
+            self.groups = self.groupsDB.read()
+            
+            self.token = self.groups?.observe { [weak self] changes in
+                self?.tableView.reloadData()
+            }
         }
     }
     
@@ -34,8 +51,8 @@ class GroupsViewController: UIViewController {
         }
         let group = sourceController.groups[indexPath.row]
                 
-        if !groups.contains(where: { $0.name == group.name }) {
-            groups.append(group)
+        if !(groups?.contains(where: { $0.name == group.name }) ?? false) {
+//            groups.append(group)
             tableView.reloadData()
         }
         
@@ -51,7 +68,7 @@ extension GroupsViewController: UITableViewDataSource {
         1
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        groups.count
+        groups?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -61,8 +78,8 @@ extension GroupsViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         
-        let group = groups[indexPath.row]
-        cell.configure(group: group)
+        let group = groups?[indexPath.row]
+        cell.configure(group: group!)
         return cell
     }
     
@@ -74,7 +91,7 @@ extension GroupsViewController: UITableViewDataSource {
         // Если была нажата кнопка "Удалить"
         if editingStyle == .delete {
             // Удаляем город из массива
-            groups.remove(at: indexPath.row)
+//            groups.remove(at: indexPath.row)
             // И удаляем строку из таблицы
             tableView.deleteRows(at: [indexPath], with: .fade)
         }

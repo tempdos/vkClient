@@ -8,20 +8,19 @@
 import Foundation
 import RealmSwift
 
-final class FriendsDB {
+final class UsersDB {
     
     init() {
-        Realm.Configuration.defaultConfiguration = Realm.Configuration(schemaVersion: 4)
+        Realm.Configuration.defaultConfiguration = Realm.Configuration(schemaVersion: 6)
     }
 
     
-    func create(_ users: [User]) {
+    func create(_ user: User) {
         
         let realm = try! Realm()
         try! realm.write {
-            realm.add(users)
+            realm.add(user)
         }
-        print(realm.configuration.fileURL ?? "")
     }
     
     func read() -> Results<User> {
@@ -36,6 +35,17 @@ final class FriendsDB {
         let realm = try! Realm()
         try! realm.write{
             realm.delete(user)
+        }
+    }
+    
+    func readOne(_ lastName: String) -> Bool {
+        let realm = try! Realm()
+        let predicate = NSPredicate(format: "lastName = %@", lastName)
+        let user = realm.objects(User.self).filter(predicate)
+        if user.isEmpty {
+            return false
+        } else {
+            return true
         }
     }
 }

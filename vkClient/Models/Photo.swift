@@ -10,8 +10,8 @@ import RealmSwift
 
 class Photo: Object, Codable {
     
-    @objc dynamic let id: Int
-    @objc dynamic let sizes: [Size]
+    @objc dynamic var id: Int
+    var sizes: [Size]
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -20,6 +20,11 @@ class Photo: Object, Codable {
 }
 
 class Size: Object, Codable {
-    @objc dynamic let url: String
-    @objc dynamic let type: String
+    @objc dynamic var url: String
+    @objc dynamic var type: String
+    
+    enum CodingKeys: String, CodingKey {
+        case url
+        case type
+    }
 }
