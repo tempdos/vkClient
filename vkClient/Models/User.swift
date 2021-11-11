@@ -6,12 +6,13 @@
 //
 
 import Foundation
+import RealmSwift
 
-struct User: Codable {
-    let id: Int
-    let photo100: String
-    let lastName: String
-    let firstName: String
+class User: Object, Codable {
+    @objc dynamic let id: Int
+    @objc dynamic let photo100: String
+    @objc dynamic let lastName: String
+    @objc dynamic let firstName: String
 
     enum CodingKeys: String, CodingKey {
         case id

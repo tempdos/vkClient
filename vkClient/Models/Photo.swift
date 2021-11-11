@@ -6,10 +6,11 @@
 //
 
 import Foundation
+import RealmSwift
 
-struct Photo: Codable {
-    let id: Int
-    let sizes: [Size]
+class Photo: Object, Codable {
+    @objc dynamic let id: Int
+    @objc dynamic let sizes: [Size]
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -17,7 +18,7 @@ struct Photo: Codable {
     }
 }
 
-struct Size: Codable {
-    let url: String
-    let type: String
+class Size: Object, Codable {
+    @objc dynamic let url: String
+    @objc dynamic let type: String
 }

@@ -18,7 +18,12 @@ class AuthViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if !Session.shared.token.isEmpty, !Session.shared.userId.isEmpty {
+            performSegue(withIdentifier: "moveToAnimate", sender: self)
+        }
         authorizeToVK()
+        
     }
     
 

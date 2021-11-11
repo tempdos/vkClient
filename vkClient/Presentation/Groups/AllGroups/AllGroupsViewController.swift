@@ -70,8 +70,7 @@ extension AllGroupsViewController: UITableViewDataSource {
         else {
             return UITableViewCell()
         }
-        
-        let group = filteredGroups[indexPath.row]
+                let group = filteredGroups[indexPath.row]
         cell.configure(group: group)
         return cell
     }
