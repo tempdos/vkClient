@@ -32,18 +32,15 @@ class PhotosViewController: UIViewController, CaruselViewControllerDelegate  {
         photosAPI.getPhotos(user_id: user_id) { [weak self] photos in
             
             guard let self = self else { return }
-            
             photos.forEach { photo in
                 let check = self.photosDB.readOne(photo.id)
                 if !check {
                     self.photosDB.create(photo)
                 }
             }
-            self.photos = self.photosDB.read()
+            self.photos = self.photosDB.read(self.user_id)
             
-            self.token = self.photos?.observe { [weak self] changes in
-                self?.collectionView.reloadData()
-            }
+            self.collectionView.reloadData()
         }
     }
     
@@ -57,13 +54,16 @@ class PhotosViewController: UIViewController, CaruselViewControllerDelegate  {
 
 extension PhotosViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        photos?.count ?? 0
+        guard let photos = self.photos else { return 0 }
+        return photos.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotosCollectionViewCell.identifier, for: indexPath) as! PhotosCollectionViewCell
-        let photo = photos?[indexPath.item]
-        cell.configure(photo: photo!)
+        let photo = self.photos?[indexPath.item]
+        if let photoUrl = URL(string: photo?.assetUrl ?? "") {
+            cell.photoImageView.load(url: photoUrl)
+        }
         return cell
     }
     

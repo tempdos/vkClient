@@ -10,8 +10,17 @@ import RealmSwift
 
 class Photo: Object, Codable {
     
-    @objc dynamic var id: Int
-    @objc dynamic var sizes: Size
+    @objc dynamic var id: Int = 0
+    @objc dynamic var assetUrl: String = ""
+    @objc dynamic var userId: Int = 0
+    
+    var sizes: [Size]
+    
+    var photoUrl: String {
+        guard let size = sizes.last else { return "" }
+        return size.url
+    }
+    
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -19,9 +28,9 @@ class Photo: Object, Codable {
     }
 }
 
-class Size: Object, Codable {
-    @objc dynamic var url: String
-    @objc dynamic var type: String
+struct Size: Codable {
+    var url: String
+    var type: String
     
     enum CodingKeys: String, CodingKey {
         case url

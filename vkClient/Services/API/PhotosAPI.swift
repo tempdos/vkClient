@@ -37,9 +37,12 @@ final class PhotosAPI {
             
             do {
                 
-                let photosJSON = try JSON(data: data)["response"]["items"].rawData()
+                let photosJSON = try JSON(data)["response"]["items"].rawData()
                 let photos = try JSONDecoder().decode([Photo].self, from: photosJSON)
-                
+                for photo in photos {
+                    photo.assetUrl = photo.photoUrl
+                    photo.userId = user_id
+                }
                 completion(photos)
             } catch {
                 print(error)
