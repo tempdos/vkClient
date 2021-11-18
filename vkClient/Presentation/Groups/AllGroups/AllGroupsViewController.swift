@@ -12,8 +12,10 @@ final class AllGroupsViewController: UIViewController, UISearchBarDelegate {
     @IBOutlet var tableView: UITableView!
     @IBOutlet var searchBar: UISearchBar!
     
-    var groups = GroupStorage().allGroups
+    var groups = [Group]()
     var filteredGroups: [Group]!
+    
+    let groupsAPI = GroupsAPI()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,16 +35,16 @@ final class AllGroupsViewController: UIViewController, UISearchBarDelegate {
         
         filteredGroups = [Group]()
         
+        
+        
         if searchText == "" {
             filteredGroups = groups
         } else {
-            for group in groups  {
-                if group.name.lowercased().contains(searchText.lowercased()) {
-                    filteredGroups.append(group)
-                }
+            groupsAPI.searchGroups(query: searchText.lowercased()) { items in
+                self.filteredGroups = items
+                self.tableView.reloadData()
             }
         }
-        self.tableView.reloadData()
     }
     
 }
@@ -68,8 +70,7 @@ extension AllGroupsViewController: UITableViewDataSource {
         else {
             return UITableViewCell()
         }
-        
-        let group = filteredGroups[indexPath.row]
+                let group = filteredGroups[indexPath.row]
         cell.configure(group: group)
         return cell
     }

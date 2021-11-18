@@ -14,6 +14,10 @@ final class PhotosCollectionViewCell: UICollectionViewCell {
     
     
     func configure(photo: Photo) {
-        photoImageView.image = UIImage(named: photo.image)
+        let url = URL(string: photo.sizes.url)
+        if let data = try? Data(contentsOf: url!)
+        {
+            photoImageView.image = UIImage(data: data)
+        }
     }
 }
