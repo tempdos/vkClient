@@ -11,7 +11,7 @@ import RealmSwift
 class Photo: Object, Codable {
     
     @objc dynamic var id: Int
-    var sizes: [Size]
+    @objc dynamic var sizes: Size
 
     enum CodingKeys: String, CodingKey {
         case id

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5707430F273A6A1B0032F74F /* GroupsDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5707430E273A6A1B0032F74F /* GroupsDB.swift */; };
 		57074311273A6CDA0032F74F /* PhotosDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57074310273A6CDA0032F74F /* PhotosDB.swift */; };
+		57074313274110840032F74F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 57074312274110840032F74F /* GoogleService-Info.plist */; };
 		571CD76E26E19D16006BAEBA /* CaruselViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571CD76D26E19D16006BAEBA /* CaruselViewController.swift */; };
 		571CD77226E65887006BAEBA /* PushTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571CD77126E65887006BAEBA /* PushTransition.swift */; };
 		571CD77426E79E44006BAEBA /* PopTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571CD77326E79E44006BAEBA /* PopTransition.swift */; };
@@ -39,6 +40,7 @@
 		57C3478A269B137800D1FE3D /* GroupsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C34789269B137800D1FE3D /* GroupsViewController.swift */; };
 		57D2871926A88AD8005373AF /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D2871826A88AD8005373AF /* User.swift */; };
 		57D2871B26A88B3A005373AF /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D2871A26A88B3A005373AF /* Photo.swift */; };
+		57E0FDF92742653D004D80D8 /* UserFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E0FDF82742653D004D80D8 /* UserFirebase.swift */; };
 		57EE8D8C26F8565E0064159A /* UsersAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57EE8D8B26F8565E0064159A /* UsersAPI.swift */; };
 		57F6F0A126C35301006A6AED /* FriendsHeaderSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F6F0A026C35301006A6AED /* FriendsHeaderSection.swift */; };
 		57FD97D82737E6CA00E10B8C /* UsersDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FD97D72737E6CA00E10B8C /* UsersDB.swift */; };
@@ -49,6 +51,7 @@
 		32B0314444CC179E745B03E0 /* Pods-vkClient.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vkClient.release.xcconfig"; path = "Target Support Files/Pods-vkClient/Pods-vkClient.release.xcconfig"; sourceTree = "<group>"; };
 		5707430E273A6A1B0032F74F /* GroupsDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsDB.swift; sourceTree = "<group>"; };
 		57074310273A6CDA0032F74F /* PhotosDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosDB.swift; sourceTree = "<group>"; };
+		57074312274110840032F74F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		571CD76D26E19D16006BAEBA /* CaruselViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaruselViewController.swift; sourceTree = "<group>"; };
 		571CD77126E65887006BAEBA /* PushTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushTransition.swift; sourceTree = "<group>"; };
 		571CD77326E79E44006BAEBA /* PopTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopTransition.swift; sourceTree = "<group>"; };
@@ -81,6 +84,7 @@
 		57C34789269B137800D1FE3D /* GroupsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsViewController.swift; sourceTree = "<group>"; };
 		57D2871826A88AD8005373AF /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		57D2871A26A88B3A005373AF /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		57E0FDF82742653D004D80D8 /* UserFirebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFirebase.swift; sourceTree = "<group>"; };
 		57EE8D8B26F8565E0064159A /* UsersAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersAPI.swift; sourceTree = "<group>"; };
 		57F6F0A026C35301006A6AED /* FriendsHeaderSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsHeaderSection.swift; sourceTree = "<group>"; };
 		57FD97D72737E6CA00E10B8C /* UsersDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersDB.swift; sourceTree = "<group>"; };
@@ -202,6 +206,7 @@
 		573EEE3F269760190068EE00 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				57074312274110840032F74F /* GoogleService-Info.plist */,
 				573EEE33269760050068EE00 /* Assets.xcassets */,
 				573EEE35269760050068EE00 /* LaunchScreen.storyboard */,
 			);
@@ -268,6 +273,7 @@
 		576C02DC26F7664F007157EB /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				57E0FDF72742648C004D80D8 /* Firebase */,
 				57FD97D62737E6AE00E10B8C /* DB */,
 				571D16AA26EA513300010A15 /* Session.swift */,
 				5707430C273A55270032F74F /* API */,
@@ -326,6 +332,14 @@
 			children = (
 			);
 			path = Repository;
+			sourceTree = "<group>";
+		};
+		57E0FDF72742648C004D80D8 /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				57E0FDF82742653D004D80D8 /* UserFirebase.swift */,
+			);
+			path = Firebase;
 			sourceTree = "<group>";
 		};
 		57FD97D62737E6AE00E10B8C /* DB */ = {
@@ -406,6 +420,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				573EEE37269760050068EE00 /* LaunchScreen.storyboard in Resources */,
+				57074313274110840032F74F /* GoogleService-Info.plist in Resources */,
 				573EEE34269760050068EE00 /* Assets.xcassets in Resources */,
 				573EEE32269760040068EE00 /* Main.storyboard in Resources */,
 			);
@@ -477,6 +492,7 @@
 				573EEE2B269760040068EE00 /* AppDelegate.swift in Sources */,
 				57BFF02D26B04C12005693C8 /* Group.swift in Sources */,
 				571CD77926E7A4B9006BAEBA /* InteractiveTransition.swift in Sources */,
+				57E0FDF92742653D004D80D8 /* UserFirebase.swift in Sources */,
 				571CD76E26E19D16006BAEBA /* CaruselViewController.swift in Sources */,
 				573EEE2D269760040068EE00 /* SceneDelegate.swift in Sources */,
 				57EE8D8C26F8565E0064159A /* UsersAPI.swift in Sources */,
