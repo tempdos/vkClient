@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ywP-ie-5Fz">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ywP-ie-5Fz">
     <device id="retina6_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -309,29 +309,18 @@
                                     <outlet property="delegate" destination="gig-fj-ihl" id="1yS-EX-yTQ"/>
                                 </connections>
                             </tableView>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yaz-ZC-wUg" customClass="LettersControl" customModule="vkClient" customModuleProvider="target">
-                                <rect key="frame" x="396" y="106" width="24" height="687"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="24" id="Qqe-3t-fT0"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="sm6-bw-a6w"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Yaz-ZC-wUg" firstAttribute="top" secondItem="sm6-bw-a6w" secondAttribute="top" constant="50" id="BXc-Qt-V0E"/>
                             <constraint firstItem="T5m-ox-7Ma" firstAttribute="top" secondItem="sm6-bw-a6w" secondAttribute="top" id="Ku5-Om-pOs"/>
                             <constraint firstItem="sm6-bw-a6w" firstAttribute="trailing" secondItem="T5m-ox-7Ma" secondAttribute="trailing" id="N2l-9o-gVa"/>
-                            <constraint firstItem="sm6-bw-a6w" firstAttribute="trailing" secondItem="Yaz-ZC-wUg" secondAttribute="trailing" constant="8" id="aBc-3G-NSq"/>
                             <constraint firstItem="sm6-bw-a6w" firstAttribute="bottom" secondItem="T5m-ox-7Ma" secondAttribute="bottom" id="aRf-bq-nM9"/>
-                            <constraint firstItem="sm6-bw-a6w" firstAttribute="bottom" secondItem="Yaz-ZC-wUg" secondAttribute="bottom" constant="50" id="fCT-Ql-COu"/>
                             <constraint firstItem="T5m-ox-7Ma" firstAttribute="leading" secondItem="sm6-bw-a6w" secondAttribute="leading" id="lx6-0o-wHz"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Друзья" id="4zn-Z8-11Y"/>
                     <connections>
-                        <outlet property="letterControl" destination="Yaz-ZC-wUg" id="G5u-Ki-zFk"/>
                         <outlet property="tableView" destination="T5m-ox-7Ma" id="qfO-iy-5YU"/>
                         <segue destination="22g-yk-D9w" kind="show" identifier="moveToPhotos" id="bUM-Nq-L4r"/>
                     </connections>
