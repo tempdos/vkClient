@@ -6,9 +6,25 @@
 //
 
 import Foundation
+import RealmSwift
 
-struct Photo {
-    let image: String
-    let date: String
-    let description: String
+class Photo: Object, Codable {
+    
+    @objc dynamic var id: Int
+    @objc dynamic var sizes: Size
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case sizes
+    }
+}
+
+class Size: Object, Codable {
+    @objc dynamic var url: String
+    @objc dynamic var type: String
+    
+    enum CodingKeys: String, CodingKey {
+        case url
+        case type
+    }
 }

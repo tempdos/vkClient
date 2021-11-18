@@ -16,7 +16,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var passwordLabel: UILabel!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
-    @IBOutlet var animateDot: UIView!
     
     
     override func viewDidLoad() {

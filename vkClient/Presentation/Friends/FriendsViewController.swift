@@ -6,56 +6,51 @@
 //
 
 import UIKit
+import RealmSwift
 
 class FriendsViewController: UIViewController {
 
-    @IBOutlet var letterControl: LettersControl!
     @IBOutlet var tableView: UITableView!
     
-    var friendsSection = [[User]]()
-    private var firstLetters: [String] = []
+    // Services
+    private let usersAPI = UsersAPI()
+    private let usersDB = UsersDB()
+    
+    // Data source
+    private var friends: Results<User>?
+    private var token: NotificationToken?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let friends = UserStorage().users.sorted(by: { $0.name < $1.name })
-        firstLetters = getFirstLetters(friends)
-        letterControl.setLetters(firstLetters)
-        letterControl.addTarget(self, action: #selector(scrollToLetter), for: .valueChanged)
-        
-        friendsSection = sortedForSection(friends, firstLetters: firstLetters)
-        
-        tableView.register(FriendsHeaderSection.self, forHeaderFooterViewReuseIdentifier: FriendsHeaderSection.reuseIdentifier)
-    }
-    
-    @objc func scrollToLetter() {
-        let letter = letterControl.selectLetter
-        guard
-            let firstIndexForLetter = friendsSection.firstIndex(where: { String($0.first?.name.prefix(1) ?? "") == letter })
-        else {
-            return
+        usersAPI.getFriends { [weak self] users in
+            
+            guard let self = self else { return }
+            
+            users.forEach { user in
+                let check = self.usersDB.readOne(user.lastName)
+                if !check {
+                    self.usersDB.create(user)
+                }
+            }
+            self.friends = self.usersDB.read()
+            
+            self.token = self.friends?.observe { [weak self] changes in
+                guard let self = self else { return }
+                switch changes {
+                case .initial:
+                    self.tableView.reloadData()
+                case .update(_, let deletions, let insertions, let modifications):
+                    self.tableView.beginUpdates()
+                    self.tableView.insertRows(at: insertions.map({ IndexPath(row: $0, section: 0) }), with: .automatic)
+                    self.tableView.deleteRows(at: deletions.map({ IndexPath(row: $0, section: 0) }), with: .automatic)
+                    self.tableView.reloadRows(at: modifications.map({ IndexPath(row: $0, section: 0) }), with: .automatic)
+                    self.tableView.endUpdates()
+                case .error(let error):
+                    fatalError("\(error)")
+                }
+            }
         }
-
-        tableView.scrollToRow(
-            at: IndexPath(row: 0, section: firstIndexForLetter),
-            at: .top,
-            animated: true)
-    }
-
-    
-    private func getFirstLetters(_ friends: [User]) -> [String] {
-        let friendsName = friends.map { $0.name }
-        let firstLetters = Array(Set(friendsName.map { String($0.prefix(1)) })).sorted()
-        return firstLetters
-    }
-    
-    private func sortedForSection(_ friends: [User], firstLetters: [String]) -> [[User]] {
-        var friendsSorted: [[User]] = []
-        firstLetters.forEach { letter in
-            let friendsForLetter = friends.filter { String($0.name.prefix(1)) == letter }
-            friendsSorted.append(friendsForLetter)
-        }
-        return friendsSorted
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -64,9 +59,9 @@ class FriendsViewController: UIViewController {
            let destinationController = segue.destination as? PhotosViewController,
            let indexPath = sender as? IndexPath
         {
-            let friend = friendsSection[indexPath.section][indexPath.row]
-            destinationController.photos = friend.photos
-            destinationController.title = friend.name
+            let friend = friends?[indexPath.row]
+            destinationController.title = "\(friend?.firstName ?? "") \(friend?.lastName ?? "")"
+            destinationController.user_id = friend?.id ?? 0
         }
     }
 }
@@ -74,11 +69,12 @@ class FriendsViewController: UIViewController {
 extension FriendsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        friendsSection.count
+        1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        friendsSection[section].count
+        guard let friends = friends else { return 0 }
+        return friends.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -87,22 +83,12 @@ extension FriendsViewController: UITableViewDelegate, UITableViewDataSource {
         else {
             return UITableViewCell()
         }
-        let friend = friendsSection[indexPath.section][indexPath.row]
-        cell.configure(user: friend)
+        let friend = friends?[indexPath.row]
+        cell.configure(user: friend!)
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "moveToPhotos", sender: indexPath)
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard
-            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: FriendsHeaderSection.reuseIdentifier) as? FriendsHeaderSection
-        else {
-            return nil
-        }
-        header.configure(title: firstLetters[section])
-        return header
     }
 }
