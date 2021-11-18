@@ -9,10 +9,10 @@ import Foundation
 import RealmSwift
 
 class User: Object, Codable {
-    @objc dynamic let id: Int
-    @objc dynamic let photo100: String
-    @objc dynamic let lastName: String
-    @objc dynamic let firstName: String
+    @objc dynamic var id: Int
+    @objc dynamic var photo100: String
+    @objc dynamic var lastName: String
+    @objc dynamic var firstName: String
 
     enum CodingKeys: String, CodingKey {
         case id
