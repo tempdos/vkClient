@@ -7,6 +7,7 @@
 
 import UIKit
 import WebKit
+import Firebase
 
 class AuthViewController: UIViewController {
 
@@ -72,6 +73,11 @@ extension AuthViewController: WKNavigationDelegate {
         
         Session.shared.token = token
         Session.shared.userId = userId
+        
+        let ref = Database.database().reference(withPath: "users")
+        let user = UserFirebase(id: userId)
+        let userContainerRef = ref.child(userId)
+        userContainerRef.setValue(user.toAnyObject())
         
         self.performSegue(withIdentifier: "moveToAnimate", sender: self)
         

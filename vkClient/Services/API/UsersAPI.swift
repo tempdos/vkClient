@@ -1,5 +1,5 @@
 //
-//  PhotosAPI.swift
+//  FriendsAPI.swift
 //  vkClient
 //
 //  Created by Василий Слепцов on 20.09.2021.
@@ -9,22 +9,22 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
-final class PhotosAPI {
+final class UsersAPI {
     
     let baseUrl = "https://api.vk.com/method"
     let token = Session.shared.token
     let userId = Session.shared.userId
     let version = "5.131"
     
-    func getPhotos(id: Int, completion: @escaping([Photo]) -> ()) {
+    func getFriends(completion: @escaping([User]) -> ()) {
         
-        let method = "/photos.get"
+        let method = "/friends.get"
         
         let parameters: Parameters = [
-            "owner_id": id,
-            "album_id": "wall",
-            "extended": 1,
+            "user_id": userId,
+            "order": "name",
             "count": 5,
+            "fields": "photo_100",
             "access_token": token,
             "v": version
         ]
@@ -37,10 +37,9 @@ final class PhotosAPI {
             
             do {
                 
-                let photosJSON = try JSON(data: data)["response"]["items"].rawData()
-                let photos = try JSONDecoder().decode([Photo].self, from: photosJSON)
-                
-                completion(photos)
+                let friendsJSON = try JSON(data: data)["response"]["items"].rawData()
+                let friends = try JSONDecoder().decode([User].self, from: friendsJSON)
+                completion(friends)
             } catch {
                 print(error)
             }
