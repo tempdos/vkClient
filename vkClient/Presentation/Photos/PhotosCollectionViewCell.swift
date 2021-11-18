@@ -14,7 +14,7 @@ final class PhotosCollectionViewCell: UICollectionViewCell {
     
     
     func configure(photo: Photo) {
-        let url = URL(string: photo.sizes[0].url)
+        let url = URL(string: photo.sizes.url)
         if let data = try? Data(contentsOf: url!)
         {
             photoImageView.image = UIImage(data: data)
