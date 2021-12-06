@@ -7,43 +7,24 @@
 
 import Foundation
 
-class News: Codable {
-    var text: String = ""
-    var assetUrl: String = ""
-    var photos: Photos?
-    var userId: String = ""
+struct News: Codable {
     
-    var photoUrl: String {
-        guard let items = photos?.items.first,
-                let sizes = items.sizes.last else { return "" }
-        let url = sizes.url
-        
-        return url
-    }
+    let text: String
+    let canSetCategory, isFavorite: Bool
+    let type, postType: String
+    let date, sourceID: Int
+    let canDoubtCategory: Bool
+    let postID: Int
 
     enum CodingKeys: String, CodingKey {
         case text
-        case photos
+        case canSetCategory = "can_set_category"
+        case isFavorite = "is_favorite"
+        case type
+        case postType = "post_type"
+        case date
+        case sourceID = "source_id"
+        case canDoubtCategory = "can_doubt_category"
+        case postID = "post_id"
     }
-}
-
-struct Photos: Codable {
-    var items: [PhotosItem]
-    
-    enum CodingKeys: String, CodingKey {
-        case items
-    }
-}
-
-struct PhotosItem: Codable {
-    
-    var sizes: [SizeNew]
-    
-    enum CodingKeys: String, CodingKey {
-        case sizes
-    }
-}
-
-struct SizeNew: Codable {
-    var url: String
 }

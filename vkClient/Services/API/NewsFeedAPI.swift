@@ -15,21 +15,18 @@ final class NewsFeedAPI {
     let token = Session.shared.token
     let userId = Session.shared.userId
     let version = "5.131"
-    let scope = "140488159"
+    let filters = "post"
+    let count = 5
+    let method = "/newsfeed.get"
     
     func getNewsFeed(completion: @escaping([News]) -> ()) {
         
-        let method = "/newsfeed.get"
-        
         let parameters: Parameters = [
             "userId": userId,
-            "filters": "post, wall_photo",
-            "return_banned": 0,
-            "max_photos": 5,
-            "count": 5,
+            "filters": filters,
+            "count": count,
             "access_token": token,
-            "v": version,
-            "scope": scope
+            "v": version
         ]
         
         let url = baseUrl + method
@@ -42,10 +39,6 @@ final class NewsFeedAPI {
 
                 let newsJSON = try JSON(data: data)["response"]["items"].rawData()
                 let news = try JSONDecoder().decode([News].self, from: newsJSON)
-                for item in news {
-                    item.assetUrl = item.photoUrl
-                    item.userId = self.userId
-                }
                 completion(news)
             } catch {
                 print(error)
