@@ -20,6 +20,8 @@ class FriendsViewController: UIViewController {
     private var friends: Results<User>?
     private var token: NotificationToken?
     
+    // Add operations
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
