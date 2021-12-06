@@ -11,7 +11,7 @@ import RealmSwift
 final class PhotosDB {
     
     init() {
-        Realm.Configuration.defaultConfiguration = Realm.Configuration(schemaVersion: 7)
+        Realm.Configuration.defaultConfiguration = Realm.Configuration(schemaVersion: 10)
     }
 
     
@@ -23,11 +23,11 @@ final class PhotosDB {
         }
     }
     
-    func read() -> Results<Photo> {
+    func read(_ userId: Int) -> Results<Photo> {
         
         let realm = try! Realm()
-        let photo: Results<Photo> = realm.objects(Photo.self)
-        return photo
+        let photos: Results<Photo> = realm.objects(Photo.self).filter("userId = %@", userId)
+        return photos
     }
     
     func delete(_ photo: Photo) {
@@ -45,6 +45,14 @@ final class PhotosDB {
             return false
         } else {
             return true
+        }
+    }
+    
+    func deleteAll() {
+        let realm = try! Realm()
+        
+        try! realm.write {
+            realm.deleteAll()
         }
     }
 }

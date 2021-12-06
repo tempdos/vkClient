@@ -11,7 +11,7 @@ import RealmSwift
 final class GroupsDB {
     
     init() {
-        Realm.Configuration.defaultConfiguration = Realm.Configuration(schemaVersion: 7)
+        Realm.Configuration.defaultConfiguration = Realm.Configuration(schemaVersion: 10)
     }
 
     

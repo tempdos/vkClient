@@ -12,12 +12,4 @@ final class PhotosCollectionViewCell: UICollectionViewCell {
     static let identifier = "PhotosCollectionViewCell"
     @IBOutlet var photoImageView: UIImageView!
     
-    
-    func configure(photo: Photo) {
-        let url = URL(string: photo.sizes.url)
-        if let data = try? Data(contentsOf: url!)
-        {
-            photoImageView.image = UIImage(data: data)
-        }
-    }
 }
