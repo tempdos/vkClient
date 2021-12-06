@@ -14,6 +14,8 @@ final class NewsFeedViewController: UIViewController {
     // Services
     private let newsFeedAPI = NewsFeedAPI()
     private var news: [News] = []
+    private var groups: [NewsGroup] = []
+    private var profiles: [NewsProfile] = []
     
     private enum NewsFeedContents {
         case text
@@ -25,19 +27,28 @@ final class NewsFeedViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.register(UINib(nibName: NewsTextCell.reusedIdentifier, bundle: nil), forCellReuseIdentifier: NewsTextCell.reusedIdentifier)
-        
         getData()
+        
+        tableView.register(UINib(nibName: NewsTextCell.reusedIdentifier, bundle: nil), forCellReuseIdentifier: NewsTextCell.reusedIdentifier)
+        tableView.register(UINib(nibName: NewsPhotoCell.reusedIdentifier, bundle: nil), forCellReuseIdentifier: NewsPhotoCell.reusedIdentifier)
+        tableView.register(UINib(nibName: NewsAuthorAndDateCell.reusedIdentifier, bundle: nil), forCellReuseIdentifier: NewsAuthorAndDateCell.reusedIdentifier)
+        tableView.register(UINib(nibName: NewsLikesAndCommentsCell.reusedIdentifier, bundle: nil), forCellReuseIdentifier: NewsLikesAndCommentsCell.reusedIdentifier)
+        
+        tableView.reloadData()
+        
+        
     }
     
     func getData() {
-        newsFeedAPI.getNewsFeed { [weak self] news in
+        newsFeedAPI.getNewsFeed { [weak self] news, groups, profiles in
             guard let self = self else { return }
             self.news = news
+            self.groups = groups
+            self.profiles = profiles
+            
             if news.count > 0 {
                 
             }
-            self.tableView.reloadData()
         }
     }
 }
@@ -67,7 +78,9 @@ extension NewsFeedViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.row {
         case 0: return tableView.dequeueReusableCell(withIdentifier: NewsTextCell.reusedIdentifier, for: indexPath)
-        case 1: return tableView.dequeueReusableCell(withIdentifier: "NewsPhotoCell", for: indexPath)
+        case 1: return tableView.dequeueReusableCell(withIdentifier: NewsPhotoCell.reusedIdentifier, for: indexPath)
+        case 2: return tableView.dequeueReusableCell(withIdentifier: NewsAuthorAndDateCell.reusedIdentifier, for: indexPath)
+        case 3: return tableView.dequeueReusableCell(withIdentifier: NewsLikesAndCommentsCell.reusedIdentifier, for: indexPath)
         default:
             debugPrint("No cell chosen")
             return tableView.dequeueReusableCell(withIdentifier: NewsTextCell.reusedIdentifier, for: indexPath)
