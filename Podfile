@@ -15,4 +15,5 @@ target 'vkClient' do
   pod 'SwiftKeychainWrapper'
   pod 'Firebase/Auth'
   pod 'Firebase/Database'
+  pod 'PromiseKit'
 end
