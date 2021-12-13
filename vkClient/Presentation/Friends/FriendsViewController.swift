@@ -17,7 +17,7 @@ class FriendsViewController: UIViewController {
     private let usersDB = UsersDB()
     
     // Data source
-    private var friends: Results<User>?
+    var friends: [User]?
     private var token: NotificationToken?
     
     // Add operations
@@ -25,34 +25,17 @@ class FriendsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        usersAPI.getFriends { [weak self] users in
-            
-            guard let self = self else { return }
-            
-            users.forEach { user in
-                let check = self.usersDB.readOne(user.lastName)
-                if !check {
-                    self.usersDB.create(user)
-                }
-            }
-            self.friends = self.usersDB.read()
-            
-            self.token = self.friends?.observe { [weak self] changes in
-                guard let self = self else { return }
-                switch changes {
-                case .initial:
-                    self.tableView.reloadData()
-                case .update(_, let deletions, let insertions, let modifications):
-                    self.tableView.beginUpdates()
-                    self.tableView.insertRows(at: insertions.map({ IndexPath(row: $0, section: 0) }), with: .automatic)
-                    self.tableView.deleteRows(at: deletions.map({ IndexPath(row: $0, section: 0) }), with: .automatic)
-                    self.tableView.reloadRows(at: modifications.map({ IndexPath(row: $0, section: 0) }), with: .automatic)
-                    self.tableView.endUpdates()
-                case .error(let error):
-                    fatalError("\(error)")
-                }
-            }
-        }
+        let queue = OperationQueue.main
+        
+        let getFriends = GetUsersAPI()
+        let parseFriends = ParseUsersAPI()
+        let showFriends = DisplayUsersAPI(controller: self)
+        
+        parseFriends.addDependency(getFriends)
+        showFriends.addDependency(parseFriends)
+        
+        let operations = [getFriends, parseFriends, showFriends]
+        queue.addOperations(operations, waitUntilFinished: false)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

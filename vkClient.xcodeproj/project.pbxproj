@@ -40,6 +40,9 @@
 		5749E20226DD11A300A7E7E7 /* AnimateLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5749E20126DD11A300A7E7E7 /* AnimateLogin.swift */; };
 		57552C39271FA783001A1BC5 /* SearchGroupsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57552C38271FA783001A1BC5 /* SearchGroupsAPI.swift */; };
 		576C02E426F7679B007157EB /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576C02E326F7679B007157EB /* AuthViewController.swift */; };
+		577EE9F72767791400FA7A06 /* GetUsersAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577EE9F62767791400FA7A06 /* GetUsersAPI.swift */; };
+		577EE9F927677B4100FA7A06 /* ParseUsersAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577EE9F827677B4100FA7A06 /* ParseUsersAPI.swift */; };
+		577EE9FB27677CB300FA7A06 /* DisplayUsersAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577EE9FA27677CB300FA7A06 /* DisplayUsersAPI.swift */; };
 		57A40EAE26F85FF50065844F /* GroupsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A40EAD26F85FF50065844F /* GroupsAPI.swift */; };
 		57A40EB026F861640065844F /* PhotosAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A40EAF26F861640065844F /* PhotosAPI.swift */; };
 		57AFB1E62725788C0097CC9A /* Data+PrettyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AFB1E52725788C0097CC9A /* Data+PrettyJSON.swift */; };
@@ -98,6 +101,9 @@
 		5749E20126DD11A300A7E7E7 /* AnimateLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimateLogin.swift; sourceTree = "<group>"; };
 		57552C38271FA783001A1BC5 /* SearchGroupsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchGroupsAPI.swift; sourceTree = "<group>"; };
 		576C02E326F7679B007157EB /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
+		577EE9F62767791400FA7A06 /* GetUsersAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUsersAPI.swift; sourceTree = "<group>"; };
+		577EE9F827677B4100FA7A06 /* ParseUsersAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseUsersAPI.swift; sourceTree = "<group>"; };
+		577EE9FA27677CB300FA7A06 /* DisplayUsersAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayUsersAPI.swift; sourceTree = "<group>"; };
 		57A40EAD26F85FF50065844F /* GroupsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsAPI.swift; sourceTree = "<group>"; };
 		57A40EAF26F861640065844F /* PhotosAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosAPI.swift; sourceTree = "<group>"; };
 		57AFB1E52725788C0097CC9A /* Data+PrettyJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+PrettyJSON.swift"; sourceTree = "<group>"; };
@@ -144,6 +150,7 @@
 		5707430C273A55270032F74F /* API */ = {
 			isa = PBXGroup;
 			children = (
+				577EE9F52767790600FA7A06 /* Users */,
 				57EE8D8B26F8565E0064159A /* UsersAPI.swift */,
 				57A40EAD26F85FF50065844F /* GroupsAPI.swift */,
 				57A40EAF26F861640065844F /* PhotosAPI.swift */,
@@ -356,6 +363,16 @@
 				5707430C273A55270032F74F /* API */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		577EE9F52767790600FA7A06 /* Users */ = {
+			isa = PBXGroup;
+			children = (
+				577EE9F62767791400FA7A06 /* GetUsersAPI.swift */,
+				577EE9F827677B4100FA7A06 /* ParseUsersAPI.swift */,
+				577EE9FA27677CB300FA7A06 /* DisplayUsersAPI.swift */,
+			);
+			path = Users;
 			sourceTree = "<group>";
 		};
 		57AFB1E42725785A0097CC9A /* Helpers */ = {
@@ -581,6 +598,7 @@
 				57C34787269B11E500D1FE3D /* FriendsViewController.swift in Sources */,
 				5707430F273A6A1B0032F74F /* GroupsDB.swift in Sources */,
 				57552C39271FA783001A1BC5 /* SearchGroupsAPI.swift in Sources */,
+				577EE9FB27677CB300FA7A06 /* DisplayUsersAPI.swift in Sources */,
 				576C02E426F7679B007157EB /* AuthViewController.swift in Sources */,
 				57E0FE04274BC156004D80D8 /* News.swift in Sources */,
 				573EEE2F269760040068EE00 /* ViewController.swift in Sources */,
@@ -593,6 +611,7 @@
 				57E0FDF92742653D004D80D8 /* UserFirebase.swift in Sources */,
 				571CD76E26E19D16006BAEBA /* CaruselViewController.swift in Sources */,
 				573EEE2D269760040068EE00 /* SceneDelegate.swift in Sources */,
+				577EE9F72767791400FA7A06 /* GetUsersAPI.swift in Sources */,
 				57E0FDFB27462FFE004D80D8 /* ImageView.swift in Sources */,
 				5737B948275DA1AF00B52196 /* NewsTextCell.swift in Sources */,
 				57EE8D8C26F8565E0064159A /* UsersAPI.swift in Sources */,
@@ -603,6 +622,7 @@
 				57AFB1E62725788C0097CC9A /* Data+PrettyJSON.swift in Sources */,
 				571CD77226E65887006BAEBA /* PushTransition.swift in Sources */,
 				573EAEAE26AD3316004D3105 /* FriendTableViewCell.swift in Sources */,
+				577EE9F927677B4100FA7A06 /* ParseUsersAPI.swift in Sources */,
 				571D16AB26EA513300010A15 /* Session.swift in Sources */,
 				57E0FE06274BC409004D80D8 /* NewsFeedAPI.swift in Sources */,
 				5737B956275DD46600B52196 /* NewsLikesAndCommentsCell.swift in Sources */,
