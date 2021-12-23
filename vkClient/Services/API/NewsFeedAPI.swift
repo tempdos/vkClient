@@ -19,7 +19,7 @@ final class NewsFeedAPI {
     let count = 5
     let method = "/newsfeed.get"
     
-    func getNewsFeed(completion: @escaping([News], [NewsGroup], [NewsProfile]) -> ()) {
+    func getNewsFeed(completion: @escaping(News?) -> ()) {
         
         let parameters: Parameters = [
             "userId": userId,
@@ -34,20 +34,18 @@ final class NewsFeedAPI {
         AF.request(url, method: .get, parameters: parameters).responseJSON { response in
             
             guard let data = response.data else { return }
-            debugPrint(data.prettyJSON as Any)
             
             let newsDispatchGroup = DispatchGroup()
             
-            var posts: [News] = []
-            var groups: [NewsGroup] = []
-            var profiles: [NewsProfile] = []
+            var items: [Item] = []
+            var groups: [Group] = []
+            var profiles: [Profile] = []
 
             DispatchQueue.global().async(group: newsDispatchGroup) {
                 do {
-
                     let newsJSON = try JSON(data: data)["response"]["items"].rawData()
-                    posts = try JSONDecoder().decode([News].self, from: newsJSON)
-                    debugPrint(posts)
+                    items = try JSONDecoder().decode([Item].self, from: newsJSON)
+                    debugPrint(items)
                 } catch {
                     print(error)
                 }
@@ -56,7 +54,7 @@ final class NewsFeedAPI {
             DispatchQueue.global().async(group: newsDispatchGroup) {
                 do {
                     let newsGroupsJSON = try JSON(data: data)["response"]["groups"].rawData()
-                    groups = try JSONDecoder().decode([NewsGroup].self, from: newsGroupsJSON)
+                    groups = try JSONDecoder().decode([Group].self, from: newsGroupsJSON)
                     debugPrint(groups)
                 } catch {
                     print(error)
@@ -66,7 +64,7 @@ final class NewsFeedAPI {
             DispatchQueue.global().async(group: newsDispatchGroup) {
                 do {
                     let newsProfilesJSON = try JSON(data: data)["response"]["profiles"].rawData()
-                    profiles = try JSONDecoder().decode([NewsProfile].self, from: newsProfilesJSON)
+                    profiles = try JSONDecoder().decode([Profile].self, from: newsProfilesJSON)
                     debugPrint(profiles)
                 } catch {
                     print(error)
@@ -74,8 +72,9 @@ final class NewsFeedAPI {
             }
             
             newsDispatchGroup.notify(queue: DispatchQueue.main) {
-                debugPrint("Done")
-                completion(posts, groups, profiles)
+                let response = NewsResponse(items: items, profiles: profiles, groups: groups)
+                let news = News(response: response)
+                completion(news)
             }
         }
     }

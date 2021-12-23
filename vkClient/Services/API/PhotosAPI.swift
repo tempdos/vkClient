@@ -16,7 +16,7 @@ final class PhotosAPI {
     let userId = Session.shared.userId
     let version = "5.131"
     
-    func getPhotos(user_id: Int, completion: @escaping([Photo]) -> ()) {
+    func getPhotos(user_id: Int, completion: @escaping([Photos]) -> ()) {
         
         let method = "/photos.get"
         
@@ -38,7 +38,7 @@ final class PhotosAPI {
             do {
                 
                 let photosJSON = try JSON(data)["response"]["items"].rawData()
-                let photos = try JSONDecoder().decode([Photo].self, from: photosJSON)
+                let photos = try JSONDecoder().decode([Photos].self, from: photosJSON)
                 for photo in photos {
                     photo.assetUrl = photo.photoUrl
                     photo.userId = user_id

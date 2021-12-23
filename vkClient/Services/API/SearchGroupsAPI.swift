@@ -15,7 +15,7 @@ final class SearchGroupsAPI {
     let userId = Session.shared.userId
     let version = "5.131"
     
-    func getGroups(completion: @escaping([Group]) -> ()) {
+    func getGroups(completion: @escaping([Groups]) -> ()) {
         
         let method = "/search.getHints"
         

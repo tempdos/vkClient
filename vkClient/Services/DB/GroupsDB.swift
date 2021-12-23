@@ -15,7 +15,7 @@ final class GroupsDB {
     }
 
     
-    func create(_ group: Group) {
+    func create(_ group: Groups) {
         
         let realm = try! Realm()
         try! realm.write {
@@ -23,14 +23,14 @@ final class GroupsDB {
         }
     }
     
-    func read() -> Results<Group> {
+    func read() -> Results<Groups> {
         
         let realm = try! Realm()
-        let group: Results<Group> = realm.objects(Group.self)
+        let group: Results<Groups> = realm.objects(Groups.self)
         return group
     }
     
-    func delete(_ group: Group) {
+    func delete(_ group: Groups) {
         
         let realm = try! Realm()
         try! realm.write{
@@ -41,7 +41,7 @@ final class GroupsDB {
     func readOne(_ name: String) -> Bool {
         let realm = try! Realm()
         let predicate = NSPredicate(format: "name = %@", name)
-        let group = realm.objects(Group.self).filter(predicate)
+        let group = realm.objects(Groups.self).filter(predicate)
         if group.isEmpty {
             return false
         } else {

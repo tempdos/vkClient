@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-class Photo: Object, Codable {
+class Photos: Object, Codable {
     
     @objc dynamic var id: Int = 0
     @objc dynamic var assetUrl: String = ""

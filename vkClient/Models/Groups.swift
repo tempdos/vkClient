@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-class Group: Object, Codable {
+class Groups: Object, Codable {
     @objc dynamic var id: Int
     @objc dynamic var photo100: String
     @objc dynamic var name: String
