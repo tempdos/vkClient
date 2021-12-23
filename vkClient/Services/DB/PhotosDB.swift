@@ -15,7 +15,7 @@ final class PhotosDB {
     }
 
     
-    func create(_ photo: Photo) {
+    func create(_ photo: Photos) {
         
         let realm = try! Realm()
         try! realm.write {
@@ -23,14 +23,14 @@ final class PhotosDB {
         }
     }
     
-    func read(_ userId: Int) -> Results<Photo> {
+    func read(_ userId: Int) -> Results<Photos> {
         
         let realm = try! Realm()
-        let photos: Results<Photo> = realm.objects(Photo.self).filter("userId = %@", userId)
+        let photos: Results<Photos> = realm.objects(Photos.self).filter("userId = %@", userId)
         return photos
     }
     
-    func delete(_ photo: Photo) {
+    func delete(_ photo: Photos) {
         
         let realm = try! Realm()
         try! realm.write{
@@ -40,7 +40,7 @@ final class PhotosDB {
     
     func readOne(_ id: Int) -> Bool {
         let realm = try! Realm()
-        let photo = realm.objects(Photo.self).filter("id = %@", id)
+        let photo = realm.objects(Photos.self).filter("id = %@", id)
         if photo.isEmpty {
             return false
         } else {

@@ -19,7 +19,7 @@ class PhotosViewController: UIViewController, CaruselViewControllerDelegate  {
     private let photosDB = PhotosDB()
     
     // Data source
-    private var photos: Results<Photo>?
+    private var photos: Results<Photos>?
     private var token: NotificationToken?
     
     var user_id: Int = 0
@@ -44,7 +44,7 @@ class PhotosViewController: UIViewController, CaruselViewControllerDelegate  {
         }
     }
     
-    func showPresenter(photos: [Photo], selectedPhoto: Int){
+    func showPresenter(photos: [Photos], selectedPhoto: Int){
         let presentVC = CaruselViewController()
         presentVC.photos = photos
         presentVC.selectedPhoto = selectedPhoto
@@ -71,5 +71,5 @@ extension PhotosViewController: UICollectionViewDelegate, UICollectionViewDataSo
 }
 
 protocol  CaruselViewControllerDelegate: AnyObject {
-    func showPresenter(photos: [Photo], selectedPhoto: Int )
+    func showPresenter(photos: [Photos], selectedPhoto: Int )
 }

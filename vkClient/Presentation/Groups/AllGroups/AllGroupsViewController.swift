@@ -12,8 +12,8 @@ final class AllGroupsViewController: UIViewController, UISearchBarDelegate {
     @IBOutlet var tableView: UITableView!
     @IBOutlet var searchBar: UISearchBar!
     
-    var groups = [Group]()
-    var filteredGroups: [Group]!
+    var groups = [Groups]()
+    var filteredGroups: [Groups]!
     
     let groupsAPI = GroupsAPI()
     
@@ -33,7 +33,7 @@ final class AllGroupsViewController: UIViewController, UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
-        filteredGroups = [Group]()
+        filteredGroups = [Groups]()
         
         
         

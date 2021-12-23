@@ -18,7 +18,7 @@ class GroupsViewController: UIViewController {
     private let groupsDB = GroupsDB()
     
     // Data source
-    private var groups: [Group]?
+    private var groups: [Groups]?
     private var token: NotificationToken?
 
     override func viewDidLoad() {

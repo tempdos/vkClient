@@ -17,7 +17,7 @@ final class GroupsAPI {
     let userId = Session.shared.userId
     let version = "5.131"
     
-    func getGroups(completion: @escaping([Group]) -> ()) {
+    func getGroups(completion: @escaping([Groups]) -> ()) {
         
         let method = "/groups.get"
         
@@ -39,7 +39,7 @@ final class GroupsAPI {
             do {
 
                 let groupsJSON = try JSON(data: data)["response"]["items"].rawData()
-                let groups = try JSONDecoder().decode([Group].self, from: groupsJSON)
+                let groups = try JSONDecoder().decode([Groups].self, from: groupsJSON)
 
                 completion(groups)
             } catch {
@@ -48,7 +48,7 @@ final class GroupsAPI {
         }
     }
     
-    func searchGroups(query: String, completion: @escaping([Group]) -> ()) {
+    func searchGroups(query: String, completion: @escaping([Groups]) -> ()) {
         
         let method = "/groups.search"
         
@@ -69,7 +69,7 @@ final class GroupsAPI {
             do {
 
                 let groupsJSON = try JSON(data: data)["response"]["items"].rawData()
-                let groups = try JSONDecoder().decode([Group].self, from: groupsJSON)
+                let groups = try JSONDecoder().decode([Groups].self, from: groupsJSON)
 
                 completion(groups)
             } catch {
@@ -112,9 +112,9 @@ final class GroupsAPI {
         }
     }
     
-    func showGroups(from groupsResponse: Data) -> Promise<[Group]> {
-        return Promise<[Group]> { resolver in
-            let groups = try JSONDecoder().decode([Group].self, from: groupsResponse)
+    func showGroups(from groupsResponse: Data) -> Promise<[Groups]> {
+        return Promise<[Groups]> { resolver in
+            let groups = try JSONDecoder().decode([Groups].self, from: groupsResponse)
             resolver.fulfill(groups)
         }
     }

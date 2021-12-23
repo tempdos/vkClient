@@ -14,7 +14,7 @@ final class GroupsTableViewCell: UITableViewCell {
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var avatarImageView: UIImageView!
     
-    func configure(group: Group) {
+    func configure(group: Groups) {
         let url = URL(string: group.photo100)
         if let data = try? Data(contentsOf: url!)
         {

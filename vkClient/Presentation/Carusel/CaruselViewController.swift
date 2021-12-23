@@ -2,7 +2,7 @@ import UIKit
 
 class CaruselViewController: UIViewController {
     
-    var photos = [Photo]()
+    var photos = [Photos]()
     var selectedPhoto = 0
     
     var leftImageView: UIImageView!
