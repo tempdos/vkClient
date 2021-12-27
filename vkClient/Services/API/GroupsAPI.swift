@@ -8,6 +8,7 @@
 import Foundation
 import Alamofire
 import SwiftyJSON
+import PromiseKit
 
 final class GroupsAPI {
     
@@ -74,6 +75,47 @@ final class GroupsAPI {
             } catch {
                 print(error)
             }
+        }
+    }
+    
+    func requestGroups() -> Promise<Data> {
+        return Promise<Data> { resolver in
+            let method = "/groups.get"
+            let parameters: Parameters = [
+                "user_id": userId,
+                "extended": 1,
+                "count": 5,
+                "fields": "members_count, status",
+                "access_token": token,
+                "v": version
+            ]
+            let url = baseUrl + method
+            AF.request(url, method: .get, parameters: parameters).responseJSON { response in
+                if let error = response.error {
+                    resolver.reject(error)
+                }
+                if let data = response.data {
+                    resolver.fulfill(data)
+                }
+            }
+        }
+    }
+    
+    func parseGroups(from data: Data) -> Promise<Data> {
+        return Promise<Data> { resolver in
+            do {
+                let groupsJSON = try JSON(data: data)["response"]["items"].rawData()
+                resolver.fulfill(groupsJSON)
+            } catch {
+                resolver.reject(error)
+            }
+        }
+    }
+    
+    func showGroups(from groupsResponse: Data) -> Promise<[Group]> {
+        return Promise<[Group]> { resolver in
+            let groups = try JSONDecoder().decode([Group].self, from: groupsResponse)
+            resolver.fulfill(groups)
         }
     }
 }
