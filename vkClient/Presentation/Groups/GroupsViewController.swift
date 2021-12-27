@@ -7,6 +7,7 @@
 
 import UIKit
 import RealmSwift
+import PromiseKit
 
 class GroupsViewController: UIViewController {
     
@@ -17,38 +18,23 @@ class GroupsViewController: UIViewController {
     private let groupsDB = GroupsDB()
     
     // Data source
-    private var groups: Results<Group>?
+    private var groups: [Group]?
     private var token: NotificationToken?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        groupsAPI.getGroups { [weak self] groups in
-            guard let self = self else { return }
-            
-            groups.forEach { group in
-                let check = self.groupsDB.readOne(group.name)
-                if !check {
-                    self.groupsDB.create(group)
-                }
-            }
-            self.groups = self.groupsDB.read()
-            
-            self.token = self.groups?.observe { [weak self] changes in
-                guard let self = self else { return }
-                switch changes {
-                case .initial:
-                    self.tableView.reloadData()
-                case .update(_, let deletions, let insertions, let modifications):
-                    self.tableView.beginUpdates()
-                    self.tableView.insertRows(at: insertions.map({ IndexPath(row: $0, section: 0) }), with: .automatic)
-                    self.tableView.deleteRows(at: deletions.map({ IndexPath(row: $0, section: 0) }), with: .automatic)
-                    self.tableView.reloadRows(at: modifications.map({ IndexPath(row: $0, section: 0) }), with: .automatic)
-                    self.tableView.endUpdates()
-                case .error(let error):
-                    fatalError("\(error)")
-                }
-            }
+        firstly {
+            groupsAPI.requestGroups()
+        }.then { groupsResponse in
+            self.groupsAPI.parseGroups(from: groupsResponse)
+        }.then { groups in
+            self.groupsAPI.showGroups(from: groups)
+        }.done { parsedGroups in
+            self.groups = parsedGroups
+            self.tableView.reloadData()
+        }.catch { error in
+            print(error)
         }
     }
     
